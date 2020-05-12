@@ -28,11 +28,15 @@ open ProjectInterpreter
 
 [<EntryPoint>]
 let main argv =
-    let input = prepare argv.[0]
-    match grammar input with
-    | Success(res,_) -> printfn "%A" (eval res)
-    | Failure(pos,rule) -> printfn "Invalid Expression" 
-                           let message = sprintf "Cannot parse input at pos %d in rule '%s': " pos rule
-                           let diag = diagnosticMessage 20 pos argv.[0] message
-                           printf "%s" diag
-    0
+    if Array.isEmpty argv then
+        printfn "\nUsage:\n\t dotnet run \"program\" \n\nwhere program is of the form: string func1 func2 ...\n"
+        0
+    else
+        let input = prepare argv.[0]
+        match grammar input with
+        | Success(res,_) -> printfn "%A" (eval res)
+        | Failure(pos,rule) -> printfn "Invalid Expression"
+                               let message = sprintf "Cannot parse input at pos %d in rule '%s': " pos rule
+                               let diag = diagnosticMessage 20 pos argv.[0] message
+                               printf "%s" diag
+        0
