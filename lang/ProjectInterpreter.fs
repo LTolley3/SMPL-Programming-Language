@@ -20,6 +20,7 @@ let funcall (name:string) (s:string) (vs:Variable list) =
     | "isPalindrome" -> toString (isPalindrome s)
     | "reverse"      -> reverse s
     | "repeat"       -> repeat s vs
+    | "prepend"      -> prepend s vs
     | _              -> failwith "Unrecognized function name"
     
 (* evaluates an AST created from the parsers *)

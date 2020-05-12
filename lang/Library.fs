@@ -75,3 +75,11 @@ let repeat (s:string) (vs:Variable list) =
         match vs.[0] with
         | Number(n) -> String.replicate n s
         | String(_) -> failwith "Invalid function argument type. Expected int, found string"
+(* prepends vs.[0] to string s *)
+let prepend (s:string) (vs:Variable list) =
+    if (List.isEmpty vs) then
+        failwith "Invalid number of arguments. Expecting 1, found 0"
+    else
+        match vs.[0] with
+        | String(p) -> p + s
+        | Number(_) -> failwith "Invalid function argument type. Expected string, found int"
