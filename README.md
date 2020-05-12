@@ -5,4 +5,5 @@ Starter code for Lab 7
 
 ## Ready for Feeback?
  - [ ] Not completed, development is still in progress
- - [x] Completed, this lab is ready for review.
+ - [x] Part one completed
+ - [ ] Completed, this lab is ready for review.
