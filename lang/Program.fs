@@ -1,4 +1,4 @@
-﻿// Learn more about F# at http://fsharp.org
+﻿// LANGUAGE NAME: 
 
 (*
  *  TODO:
@@ -10,14 +10,17 @@
  *     [x] disallow the empty string as an argument/input
  *     
  *     [ ] handle symbols in strings
- *     [ ] more built in functions
- *     [ ] concat
+ *     [ ] more built in functions: substring, find, replace, substring count, isWord, shuffle
  *     [ ] name the language
- *     [ ] remove parens after functions
  *     [ ] file input
+ *     [ ] update spec
+ *     [ ] remove parens after functions
  *     
  *     [ ] checker
+ *     [ ] anagram?
+ *     [ ] concat
  *     [ ] organize library functions
+ *     [ ] help menu
  *     [ ] presentation
  *)
 

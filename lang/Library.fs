@@ -69,17 +69,33 @@ let rec reverse (s:string) =
         (last s) + (reverse (middle s)) + (first s)
 (* repeats a string s n number of times, returns concatenated string *)
 let repeat (s:string) (vs:Variable list) = 
-    if (List.isEmpty vs) then
-        failwith "Invalid number of arguments. Expecting 1, found 0"
+    if (List.isEmpty vs) || (List.length vs <> 1) then
+        failwith "Invalid number of arguments. Expecting 1."
     else
         match vs.[0] with
         | Number(n) -> String.replicate n s
         | String(_) -> failwith "Invalid function argument type. Expected int, found string"
 (* prepends vs.[0] to string s *)
 let prepend (s:string) (vs:Variable list) =
-    if (List.isEmpty vs) then
-        failwith "Invalid number of arguments. Expecting 1, found 0"
+    if (List.isEmpty vs) || (List.length vs <> 1) then
+        failwith "Invalid number of arguments. Expecting 1."
     else
         match vs.[0] with
         | String(p) -> p + s
         | Number(_) -> failwith "Invalid function argument type. Expected string, found int"
+(* appends vs.[0] to string s *)
+let append (s:string) (vs:Variable list) =
+    if (List.isEmpty vs) || (List.length vs <> 1) then
+        failwith "Invalid number of arguments. Expecting 1."
+    else
+        match vs.[0] with
+        | String(p) -> s + p
+        | Number(_) -> failwith "Invalid function argument type. Expected string, found int"
+(* gets a substring from s *)
+let substring (s:string) (vs:Variable list) =
+    if (List.isEmpty vs) || (List.length vs <> 2) then
+        failwith "Invalid number of arguments. Expecting 2."
+    else
+        match (vs.[0], vs.[1]) with
+        | Number(n1),Number(n2) -> s.[n1..n2]     
+        | _                     -> failwith "Invalid function argument type. Expected int, int."

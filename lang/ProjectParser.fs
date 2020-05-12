@@ -23,7 +23,9 @@ type Start = string * Expr
 
 
 (* List of all built in funtions *)
-let FunctionList = ["length"; "first"; "last"; "middle"; "isUpper"; "isLower"; "toUpper"; "toLower"; "isPalindrome"; "reverse"; "repeat"; "prepend"]
+let FunctionList = ["length"; "first"; "last"; "middle"; "isUpper"; "isLower";
+                    "toUpper"; "toLower"; "isPalindrome"; "reverse"; "repeat"; 
+                    "prepend"; "append"; "substring"]
 
 
 

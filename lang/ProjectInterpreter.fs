@@ -21,6 +21,8 @@ let funcall (name:string) (s:string) (vs:Variable list) =
     | "reverse"      -> reverse s
     | "repeat"       -> repeat s vs
     | "prepend"      -> prepend s vs
+    | "append"       -> append s vs
+    | "substring"    -> substring s vs
     | _              -> failwith "Unrecognized function name"
     
 (* evaluates an AST created from the parsers *)
