@@ -25,8 +25,7 @@ type Start = string * Expr
 (* List of all built in funtions *)
 let FunctionList = ["length"; "first"; "last"; "middle"; "isUpper"; "isLower";
                     "toUpper"; "toLower"; "isPalindrome"; "reverse"; "repeat"; 
-                    "prepend"; "append"; "substring"]
-
+                    "prepend"; "append"; "substring"; "contains"]
 
 
 (* Parsers *)
@@ -38,7 +37,7 @@ let pnum : Parser<Variable> = (pmany1 pdigit) |>> stringify |>> int |>> Number <
 (* pstring parses strings that would be in function arguments TODO add symbol support, support empty string *)
 let pstring : Parser<string> = (pmany1 pletter) |>> stringify <!> "pstring"
 (* variable parses variables that are in function arguments *)
-let variable : Parser<Variable> = pnum <|> (pstring |>> String) <!> "variable"
+let variable : Parser<Variable> = pnum <|> (pbetween (pchar '"') (pchar '"') (pstring) |>> String) <!> "variable"
 (* varlist parses a list of  variables, separated by commas OR a singular variable *)
 let varlist : Parser<Variable list> = pseq (pmany0 (pleft variable (pchar ','))) variable (fun (vs, v)-> List.append vs [v]) <|> pmany0 variable
 
@@ -62,5 +61,5 @@ let pmany1seq (p : Parser<Expr>) : Parser<Expr> =
 (* expr parses functions, TODO add user defined function support *)
 exprImpl := builtin <!> "exprImpl"
 (* grammar parser that returns a Start *)
-let grammar : Parser<Start> = pleft (pseq (pseq pstring pws1 (fun (s,sp) -> s)) (pmany1seq expr) id) peof <!> "grammar"
+let grammar : Parser<Expr> = pleft (pmany1seq expr) peof <!> "grammar"
 

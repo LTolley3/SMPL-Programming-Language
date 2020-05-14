@@ -99,3 +99,21 @@ let substring (s:string) (vs:Variable list) =
         match (vs.[0], vs.[1]) with
         | Number(n1),Number(n2) -> s.[n1..n2]     
         | _                     -> failwith "Invalid function argument type. Expected int, int."
+
+(* contains checks to see if the string contains a substring, returning true if it does *)
+let contains (s:string) (vs:Variable list) =
+    if (List.isEmpty vs) || (List.length vs <> 1) then
+        failwith "Invalid number of arguments. Expecting 1."
+    else
+        let rec containsHelper source sub : bool =
+            if (length source) < (length sub) then
+                false
+            else
+                if source.[0..((length sub)-1)] = sub then
+                    true
+                else
+                    containsHelper (source.[1..]) sub
+
+        match vs.[0] with
+        | String(sub) -> containsHelper s sub
+        | Number(_) -> failwith "Invalid function argument type. Expected string, found int"

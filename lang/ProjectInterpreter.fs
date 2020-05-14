@@ -23,6 +23,7 @@ let funcall (name:string) (s:string) (vs:Variable list) =
     | "prepend"      -> prepend s vs
     | "append"       -> append s vs
     | "substring"    -> substring s vs
+    | "contains"     -> toString (contains s vs)
     | _              -> failwith "Unrecognized function name"
     
 (* evaluates an AST created from the parsers *)
@@ -34,6 +35,9 @@ let rec funcEval (ast : Expr) (s:string) : string =
     | NOP -> s
 
 (* evaluates the AST by calling funcEval with the first string *)
-let eval (st:Start) : string =
-    let master, e = st
-    funcEval e master
+let rec eval (input:string) (ast:Expr) : string =
+    match ast with
+    | Builtin(name,vs) -> funcall name input vs
+    | Userdefined -> failwith "Not yet implemented"
+    | Seq(e1,e2) -> eval (eval input e1) e2
+    | NOP -> input
