@@ -3,8 +3,6 @@ module Library
 open ProjectParser
 (* This is the library for all built-in functions. *)
 
-let toString (s:'a) =
-    System.Convert.ToString s
 (* length of a string *)
 let length (s:string) = 
     String.length s
@@ -13,19 +11,25 @@ let first (s:string) =
     if s = "" then
         ""
     else
-        System.Convert.ToString s.[0]
+        string s.[0]
 (* last character in a string *)
 let last (s:string) =
     if s = "" then
         ""
     else   
-        System.Convert.ToString s.[(String.length s) - 1]
+        string s.[(length s) - 1]
 (* middle characters of a string *)
 let middle (s:string) = 
     if s = "" then
         ""
     else   
         s.[1..(length s)-2]
+(* returns the length -1, used in indxeing until the end of a string *)
+let getEnd (s:string) =
+    if s = "" then 
+        0
+    else
+        (length s) - 1
 
 
 
@@ -68,52 +72,33 @@ let rec reverse (s:string) =
     else
         (last s) + (reverse (middle s)) + (first s)
 (* repeats a string s n number of times, returns concatenated string *)
-let repeat (s:string) (vs:Variable list) = 
-    if (List.isEmpty vs) || (List.length vs <> 1) then
-        failwith "Invalid number of arguments. Expecting 1."
-    else
-        match vs.[0] with
-        | Number(n) -> String.replicate n s
-        | String(_) -> failwith "Invalid function argument type. Expected int, found string"
+let repeat (s:string) (num : int) = 
+    //if (List.isEmpty vs) || (List.length vs <> 1) then
+    //    failwith "Invalid number of arguments. Expecting 1."
+    //else
+    //    match vs.[0] with
+    //    | Number(n) -> String.replicate n s
+    //    | String(_) -> failwith "Invalid function argument type. Expected int, found string"
+    String.replicate num s
+
 (* prepends vs.[0] to string s *)
-let prepend (s:string) (vs:Variable list) =
-    if (List.isEmpty vs) || (List.length vs <> 1) then
-        failwith "Invalid number of arguments. Expecting 1."
-    else
-        match vs.[0] with
-        | String(p) -> p + s
-        | Number(_) -> failwith "Invalid function argument type. Expected string, found int"
+let prepend (s:string) (prefix : string) =
+    prefix + s
 (* appends vs.[0] to string s *)
-let append (s:string) (vs:Variable list) =
-    if (List.isEmpty vs) || (List.length vs <> 1) then
-        failwith "Invalid number of arguments. Expecting 1."
-    else
-        match vs.[0] with
-        | String(p) -> s + p
-        | Number(_) -> failwith "Invalid function argument type. Expected string, found int"
+let append (s:string) (suffix : string) =
+    s + suffix
 (* gets a substring from s *)
-let substring (s:string) (vs:Variable list) =
-    if (List.isEmpty vs) || (List.length vs <> 2) then
-        failwith "Invalid number of arguments. Expecting 2."
-    else
-        match (vs.[0], vs.[1]) with
-        | Number(n1),Number(n2) -> s.[n1..n2]     
-        | _                     -> failwith "Invalid function argument type. Expected int, int."
-
+let substring (s:string) (first : int) (last : int) =
+    //TODO write a try to catch index out of bounds
+    s.[first..last]
 (* contains checks to see if the string contains a substring, returning true if it does *)
-let contains (s:string) (vs:Variable list) =
-    if (List.isEmpty vs) || (List.length vs <> 1) then
-        failwith "Invalid number of arguments. Expecting 1."
-    else
-        let rec containsHelper source sub : bool =
-            if (length source) < (length sub) then
-                false
+let contains (s:string) (keyword : string) =
+    let rec containsHelper source key : bool =
+        if (length source) < (length key) then
+            false
+        else
+            if source.[0..((length key)-1)] = key then
+                true
             else
-                if source.[0..((length sub)-1)] = sub then
-                    true
-                else
-                    containsHelper (source.[1..]) sub
-
-        match vs.[0] with
-        | String(sub) -> containsHelper s sub
-        | Number(_) -> failwith "Invalid function argument type. Expected string, found int"
+                containsHelper (source.[1..]) key
+    containsHelper s keyword

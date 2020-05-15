@@ -16,9 +16,10 @@
  *     [ ] update spec
  *     [ ] remove parens after functions
  *     
+ *     [x] nested functions
  *     [ ] checker - check variable types, amount, etc.
  *     [ ] anagram?
- *     [ ] concat
+ *     [x] concat? (any concat of functions is possible with nested functions!)
  *     [ ] organize library functions
  *     [ ] help menu 
                 single quoted strings to ignore bash characters (or set +H)
@@ -50,7 +51,7 @@ let main argv =
     else
         let input = readInput argv.[0]
         let program = readSMPL argv.[1]
-        match grammar (prepare program) with
+        match grammar (debug program) with
         | Success(res,_) -> printfn "%A" (eval input res)
         | Failure(pos,rule) -> printfn "Invalid Expression"
                                let message = sprintf "Cannot parse input at pos %d in rule '%s': " pos rule
