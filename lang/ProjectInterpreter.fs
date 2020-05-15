@@ -6,6 +6,8 @@ open Library
 
 (* evaluation of AST and eventually checkers *)
 
+(* checker would take an ast, returns ast if good, failwith if bad *)
+
 (* calls function name with the vaariable list vs and initial string s *)
 let funcall (name:string) (s:string) (vs:Variable list) =
     match name with
