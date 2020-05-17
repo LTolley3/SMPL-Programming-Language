@@ -52,7 +52,7 @@ let main argv =
     else
         let input = readInput argv.[0]
         let program = readSMPL argv.[1]
-        match grammar (debug program) with
+        match grammar (prepare program) with
         | Success(res,_) -> printfn "%A" (eval input res)
         | Failure(pos,rule) -> printfn "Invalid Expression"
                                let message = sprintf "Cannot parse input at pos %d in rule '%s': " pos rule
