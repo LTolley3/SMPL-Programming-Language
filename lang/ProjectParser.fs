@@ -30,7 +30,7 @@ let expr, exprImpl = recparser()
 let pnum : Parser<Expr> = (pmany1 pdigit) |>> stringify |>> int |>> Number <!> "pnum"
 
 (* palphastring parses strings that would be in function arguments *)
-let palphastring : Parser<string> = (pmany1 pletter) |>> stringify <!> "palphastring"
+let palphastring : Parser<string> = (pmany1 (pletter <|> (pchar ' '))) |>> stringify <!> "palphastring"
 (*parses strings in either single or double quotes to handle command line shenannigans *)
 let singlequote : Parser<Expr> = pbetween (pchar ''') (pchar ''') (palphastring) |>> String <!> "singlequote"
 let doublequote : Parser<Expr> = pbetween (pchar '"') (pchar '"') (palphastring) |>> String <!> "doublequote"

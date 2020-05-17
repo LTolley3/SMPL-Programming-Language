@@ -15,6 +15,7 @@
  *     [x] file input
  *     [ ] update spec
  *     [ ] remove parens after functions
+ *     [ ] parse any string (including symbols) as arguments
  *     
  *     [x] nested functions
  *     [ ] checker - check variable types, amount, etc.
@@ -46,7 +47,7 @@ let readSMPL (input : string) =
 [<EntryPoint>]
 let main argv =
     if Array.isEmpty argv then
-        printfn "\nUsage:\n\t dotnet run \"input\" \"program\" \n\nwhere input is a string and program is of the form: func1 func2 ...\n"
+        printfn "\nUsage:\n\t dotnet run \"input\" \"program\" \n\nwhere input is a string and program is of the form: func1 func2 ... or a .smpl file.\n"
         0
     else
         let input = readInput argv.[0]

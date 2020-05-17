@@ -42,7 +42,7 @@ let isLower (s:string) =
 (* converts lower case letters to upper case letters *)
 let toUpper (s:string) =
     String.map (fun c -> 
-        if (int c >= 0x61 || int c <= 0x7a) then
+        if (int c >= 0x61 && int c <= 0x7a) then
             char (int c - 0x20)
         else
             c
@@ -50,7 +50,7 @@ let toUpper (s:string) =
 (* converts upper case letters to lower case letters *)
 let toLower (s:string) =
     String.map (fun c -> 
-        if (int c >= 0x41 || int c <= 0x5a) then
+        if (int c >= 0x41 && int c <= 0x5a) then
             char (int c + 0x20)
         else
             c
