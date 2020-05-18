@@ -10,7 +10,7 @@
  *     [x] disallow the empty string as an argument
  *     
  *     [x] handle symbols in strings
- *     [ ] more built in functions: replace, substring count, isWord, shuffle
+ *     [x] more built in functions: replace, substring count, isWord, shuffle
  *     [x] name the language SMPL
  *     [x] file input
  *     [x] update spec
