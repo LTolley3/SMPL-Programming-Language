@@ -1,5 +1,6 @@
 module Library
 
+open System.IO
 open ProjectParser
 (* This is the library for all built-in functions. *)
 
@@ -120,3 +121,7 @@ let rec substringCount (s : string) (target : string) =
             1 + (substringCount s.[(length target)..] target)
         else
             substringCount s.[1..] target
+(* isWord returns true if s is a word *)
+let isWord (s:string) (filename : string) = 
+    let words = File.ReadAllLines(filename)
+    Array.contains s words

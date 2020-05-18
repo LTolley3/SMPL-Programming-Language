@@ -29,7 +29,8 @@ let funcall (name:string) (s:string) (args: string list) : Expr=
     | "contains"       -> string (contains s (args.[0])) |> String
     | "replace"        -> replace s args.[0] args.[1] |> String
     | "substringCount" -> substringCount s args.[0] |> Number
-    | _              -> failwith "Unrecognized function name"
+    | "isWord"         -> string (isWord s "dict.txt") |> String 
+    | _                -> failwith "Unrecognized function name"
     
 
 (* evaluates the AST by calling funcEval with the first string *)

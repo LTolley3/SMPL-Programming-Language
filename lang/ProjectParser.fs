@@ -19,7 +19,8 @@ type Expr =
 (* List of all built in funtions *)
 let FunctionList = ["length"; "first"; "last"; "middle"; "getEnd"; "isUpper"; "isLower";
                     "toUpper"; "toLower"; "isPalindrome"; "reverse"; "repeat"; 
-                    "prepend"; "append"; "substring"; "contains"; "replace"; "substringCount"]
+                    "prepend"; "append"; "substring"; "contains"; "replace"; "substringCount";
+                    "isWord"]
 
 (* Parsers *)
 
