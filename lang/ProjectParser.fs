@@ -68,4 +68,3 @@ let sequence = pseq builtin (pright pws1 expr) (fun (e1,e2) -> Seq(e1,e2)) <!> "
 exprImpl := pnum <|> pquotes <|> sequence <|> builtin <|> builtinNoParen <!> "exprImpl"
 (* grammar parser that returns an expr *)
 let grammar : Parser<Expr> = pleft (pmany1seq expr) peof <!> "grammar"
-
