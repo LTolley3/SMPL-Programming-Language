@@ -21,19 +21,21 @@ let FunctionList = ["length"; "first"; "last"; "middle"; "getEnd"; "isUpper"; "i
                     "toUpper"; "toLower"; "isPalindrome"; "reverse"; "repeat"; 
                     "prepend"; "append"; "substring"; "contains"]
 
-
 (* Parsers *)
 
 (* expr, exprImpl is the recursive initializing of the expr parser *)
 let expr, exprImpl = recparser()
 (* pnum parses numbers that would be in function arguments *)
 let pnum : Parser<Expr> = (pmany1 pdigit) |>> stringify |>> int |>> Number <!> "pnum"
-
-(* palphastring parses strings that would be in function arguments *)
-let palphastring : Parser<string> = (pmany1 (pletter <|> (pchar ' '))) |>> stringify <!> "palphastring"
+(* psymbol parses any number or symbol in the ASCII table *)
+let psymbol : Parser<char> = (pchar '!') <|> (pchar '#') <|> (pchar '$') <|> (pchar '%') <|> (pchar '&') <|> (pchar '(') <|> (pchar ')') <|>
+                             (pchar '*') <|> (pchar '+') <|> (pchar ',') <|> (pchar '-') <|> (pchar '.') <|> (pchar '/') <|> (pchar '[') <|> 
+                             (pchar '\\') <|> (pchar ']') <|> (pchar '^') <|> (pchar '_') <|> (pchar '`') <|> (pchar '{') <|> (pchar '}') <|> 
+                             (pchar '~') <|> (pchar ' ')
+let pstring : Parser<string> = pmany1 (pletter <|> pdigit <|> psymbol) |>> stringify <!> "pstring"
 (*parses strings in either single or double quotes to handle command line shenannigans *)
-let singlequote : Parser<Expr> = pbetween (pchar ''') (pchar ''') (palphastring) |>> String <!> "singlequote"
-let doublequote : Parser<Expr> = pbetween (pchar '"') (pchar '"') (palphastring) |>> String <!> "doublequote"
+let singlequote : Parser<Expr> = pbetween (pchar ''') (pchar ''') pstring |>> String <!> "singlequote"
+let doublequote : Parser<Expr> = pbetween (pchar '"') (pchar '"') pstring |>> String <!> "doublequote"
 (* pquotes parses a string with double quotes around it *)
 let pquotes : Parser<Expr> = doublequote <|> singlequote <!> "pquotes"
 
@@ -41,15 +43,18 @@ let pquotes : Parser<Expr> = doublequote <|> singlequote <!> "pquotes"
 let arglist : Parser<Expr list> = pseq (pmany0 (pleft expr (pchar ','))) expr (fun (vs, v)-> List.append vs [v]) <|> pmany0 expr <!> "arglist"
 
 (* name parses a valid function name  TODO this should be part of the checker, in its place would just be a palphastring*)
-let name (i : Input) : Outcome<string> = 
-    match palphastring i with //get just the intial string
+let name : Parser<string> = pmany1 (pletter <|> pdigit <|> pchar '_' <|> pchar '-') |>> stringify 
+(*    match pstring i with //get just the intial string
     | Success(str,rest) -> 
         if List.contains str FunctionList then
             Success(str, rest)
         else
             Failure(position i, "pname")
     | Failure(pos, name) -> Failure(pos, name)
+*)
 
+(* builtingNoParen allows the user to type functions that take no arguments without the parens *)
+let builtinNoParen : Parser<Expr> = name |>> (fun n -> Builtin(n,[]))
 (* func parses a single function of the form name(variables) *)
 let builtin : Parser<Expr> = pseq name (pbetween (pchar '(') (pchar ')') (arglist)) (fun (name, vs) -> Builtin(name, vs)) <!> "builtin"
 
@@ -60,7 +65,7 @@ let pmany1seq (p : Parser<Expr>) : Parser<Expr> =
 let sequence = pseq builtin (pright pws1 expr) (fun (e1,e2) -> Seq(e1,e2)) <!> "sequence"
 
 (* expr parses functions, TODO add user defined function support *)
-exprImpl := pnum <|> pquotes <|> sequence <|> builtin <!> "exprImpl"
+exprImpl := pnum <|> pquotes <|> sequence <|> builtin <|> builtinNoParen <!> "exprImpl"
 (* grammar parser that returns an expr *)
 let grammar : Parser<Expr> = pleft (pmany1seq expr) peof <!> "grammar"
 

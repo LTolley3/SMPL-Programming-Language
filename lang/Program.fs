@@ -13,9 +13,9 @@
  *     [ ] more built in functions: replace, substring count, isWord, shuffle
  *     [x] name the language SMPL
  *     [x] file input
- *     [ ] update spec
+ *     [x] update spec
  *     [ ] remove parens after functions
- *     [ ] parse any string (including symbols) as arguments
+ *     [x] parse any string (including symbols) as arguments
  *     
  *     [x] nested functions
  *     [ ] checker - check variable types, amount, etc.
@@ -52,7 +52,7 @@ let main argv =
     else
         let input = readInput argv.[0]
         let program = readSMPL argv.[1]
-        match grammar (prepare program) with
+        match grammar (debug program) with
         | Success(res,_) -> printfn "%A" (eval input res)
         | Failure(pos,rule) -> printfn "Invalid Expression"
                                let message = sprintf "Cannot parse input at pos %d in rule '%s': " pos rule
