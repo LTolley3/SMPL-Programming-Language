@@ -102,3 +102,5 @@ let contains (s:string) (keyword : string) =
             else
                 containsHelper (source.[1..]) key
     containsHelper s keyword
+//trying to figure out  what is going on
+let x  = 0
