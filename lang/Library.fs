@@ -125,3 +125,16 @@ let rec substringCount (s : string) (target : string) =
 let isWord (s:string) (filename : string) = 
     let words = File.ReadAllLines(filename)
     Array.contains s words
+(* shuffle randomizes the characters in s *)
+let shuffle (s:string) =
+    let r = System.Random()
+    let rec shuffleHelper (s:string)  =
+        if length s <= 1 then
+            s
+        else
+            let i = r.Next(length s)
+            if i = 0 then 
+                (string s.[0]) + shuffleHelper s.[1..]
+            else
+                (string s.[i]) + shuffleHelper (s.[..(i-1)]+s.[i+1..])
+    shuffleHelper s

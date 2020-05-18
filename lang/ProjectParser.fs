@@ -20,7 +20,7 @@ type Expr =
 let FunctionList = ["length"; "first"; "last"; "middle"; "getEnd"; "isUpper"; "isLower";
                     "toUpper"; "toLower"; "isPalindrome"; "reverse"; "repeat"; 
                     "prepend"; "append"; "substring"; "contains"; "replace"; "substringCount";
-                    "isWord"]
+                    "isWord"; "shuffle"]
 
 (* Parsers *)
 
