@@ -111,3 +111,12 @@ let rec replace (s : string) (target : string) (replacement : string) =
             replacement + (replace s.[(length target)..] target replacement)
         else
             (string s.[0]) + (replace s.[1..] target replacement)
+(* substringCount returns how many times a substring appears in a string *)
+let rec substringCount (s : string) (target : string) =
+    if not (contains s target) then
+        0
+    else
+        if s.[0..((length target)-1)] = target then
+            1 + (substringCount s.[(length target)..] target)
+        else
+            substringCount s.[1..] target

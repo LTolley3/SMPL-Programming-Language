@@ -11,23 +11,24 @@ open Library
 (* calls function name with the vaariable list vs and initial string s *)
 let funcall (name:string) (s:string) (args: string list) : Expr=
     match name with
-    | "length"       -> length s |> Number
-    | "first"        -> first s |> String
-    | "last"         -> last s |> String
-    | "middle"       -> middle s |> String
-    | "getEnd"       -> getEnd s |> Number
-    | "isUpper"      -> string (isUpper s) |> String
-    | "isLower"      -> string (isLower s) |> String
-    | "toUpper"      -> toUpper s |> String
-    | "toLower"      -> toLower s |> String
-    | "isPalindrome" -> string (isPalindrome s) |> String
-    | "reverse"      -> reverse s |> String
-    | "repeat"       -> repeat s (int args.[0]) |> String
-    | "prepend"      -> prepend s (args.[0]) |> String
-    | "append"       -> append s (args.[0]) |> String
-    | "substring"    -> substring s (int (args.[0])) (int (args.[1])) |> String
-    | "contains"     -> string (contains s (args.[0])) |> String
-    | "replace"      -> replace s args.[0] args.[1] |> String
+    | "length"         -> length s |> Number
+    | "first"          -> first s |> String
+    | "last"           -> last s |> String
+    | "middle"         -> middle s |> String
+    | "getEnd"         -> getEnd s |> Number
+    | "isUpper"        -> string (isUpper s) |> String
+    | "isLower"        -> string (isLower s) |> String
+    | "toUpper"        -> toUpper s |> String
+    | "toLower"        -> toLower s |> String
+    | "isPalindrome"   -> string (isPalindrome s) |> String
+    | "reverse"        -> reverse s |> String
+    | "repeat"         -> repeat s (int args.[0]) |> String
+    | "prepend"        -> prepend s (args.[0]) |> String
+    | "append"         -> append s (args.[0]) |> String
+    | "substring"      -> substring s (int (args.[0])) (int (args.[1])) |> String
+    | "contains"       -> string (contains s (args.[0])) |> String
+    | "replace"        -> replace s args.[0] args.[1] |> String
+    | "substringCount" -> substringCount s args.[0] |> Number
     | _              -> failwith "Unrecognized function name"
     
 
