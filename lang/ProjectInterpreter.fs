@@ -27,6 +27,7 @@ let funcall (name:string) (s:string) (args: string list) : Expr=
     | "append"       -> append s (args.[0]) |> String
     | "substring"    -> substring s (int (args.[0])) (int (args.[1])) |> String
     | "contains"     -> string (contains s (args.[0])) |> String
+    | "replace"      -> replace s args.[0] args.[1] |> String
     | _              -> failwith "Unrecognized function name"
     
 

@@ -101,6 +101,13 @@ let contains (s:string) (keyword : string) =
                 true
             else
                 containsHelper (source.[1..]) key
-    containsHelper s keyword
-//trying to figure out  what is going on
-let x  = 0
+    containsHelper s keyword   
+(* replaces all instances of target with replacement *)
+let rec replace (s : string) (target : string) (replacement : string) =
+    if not (contains s target) then
+        s
+    else
+        if s.[0..((length target)-1)] = target then
+            replacement + (replace s.[(length target)..] target replacement)
+        else
+            (string s.[0]) + (replace s.[1..] target replacement)

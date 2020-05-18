@@ -14,7 +14,7 @@
  *     [x] name the language SMPL
  *     [x] file input
  *     [x] update spec
- *     [ ] remove parens after functions
+ *     [x] remove parens after functions
  *     [x] parse any string (including symbols) as arguments
  *     
  *     [x] nested functions

@@ -19,7 +19,7 @@ type Expr =
 (* List of all built in funtions *)
 let FunctionList = ["length"; "first"; "last"; "middle"; "getEnd"; "isUpper"; "isLower";
                     "toUpper"; "toLower"; "isPalindrome"; "reverse"; "repeat"; 
-                    "prepend"; "append"; "substring"; "contains"]
+                    "prepend"; "append"; "substring"; "contains"; "replace"]
 
 (* Parsers *)
 
@@ -40,7 +40,7 @@ let doublequote : Parser<Expr> = pbetween (pchar '"') (pchar '"') pstring |>> St
 let pquotes : Parser<Expr> = doublequote <|> singlequote <!> "pquotes"
 
 (* varlist parses a list of  variables, separated by commas OR a singular variable *)
-let arglist : Parser<Expr list> = pseq (pmany0 (pleft expr (pchar ','))) expr (fun (vs, v)-> List.append vs [v]) <|> pmany0 expr <!> "arglist"
+let arglist : Parser<Expr list> = pseq (pmany0 (pleft expr (pleft (pchar ',') pws0))) expr (fun (vs, v)-> List.append vs [v]) <|> pmany0 expr <!> "arglist"
 
 (* name parses a valid function name  TODO this should be part of the checker, in its place would just be a palphastring*)
 let name : Parser<string> = pmany1 (pletter <|> pdigit <|> pchar '_' <|> pchar '-') |>> stringify 
