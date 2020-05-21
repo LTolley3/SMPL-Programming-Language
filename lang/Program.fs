@@ -18,12 +18,13 @@
  *     [x] parse any string (including symbols) as arguments
  *     
  *     [x] nested functions
- *     [ ] checker - check variable types, amount, etc.
- *     [ ] anagram?
+ *     [x] checker - check variable types, amount, etc.
+ *     [/] anagram?
  *     [x] concat? (any concat of functions is possible with nested functions!)
- *     [ ] organize library functions
+ *     [/] organize library functions
+ *     [ ] test files
  *     [ ] help menu 
-                single quoted strings to ignore bash characters (or set +H)
+ *              single quoted strings to ignore bash characters (or set +H)
  *     [ ] presentation
  *)
 
@@ -52,9 +53,9 @@ let main argv =
     else
         let input = readInput argv.[0]
         let program = readSMPL argv.[1]
-        match grammar (debug program) with
+        match grammar (prepare program) with
         | Success(res,_) -> printfn "%A" (eval input res)
-        | Failure(pos,rule) -> printfn "Invalid Expression"
+        | Failure(pos,rule) -> printfn "\nInvalid Expression."
                                let message = sprintf "Cannot parse input at pos %d in rule '%s': " pos rule
                                let diag = diagnosticMessage 20 pos program message
                                printf "%s" diag

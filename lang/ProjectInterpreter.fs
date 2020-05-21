@@ -3,6 +3,7 @@ module ProjectInterpreter
 open Parser
 open ProjectParser
 open Library
+open ProjectChecker
 
 (* evaluation of AST and eventually checkers *)
 
@@ -10,6 +11,7 @@ open Library
 
 (* calls function name with the vaariable list vs and initial string s *)
 let funcall (name:string) (s:string) (args: string list) : Expr=
+    functionCheck name args
     match name with
     | "length"         -> length s |> Number
     | "first"          -> first s |> String
@@ -31,7 +33,7 @@ let funcall (name:string) (s:string) (args: string list) : Expr=
     | "substringCount" -> substringCount s args.[0] |> Number
     | "isWord"         -> string (isWord s "dict.txt") |> String 
     | "shuffle"        -> shuffle s |> String
-    | _                -> failwith "Unrecognized function name"
+    | _                -> failwith "\nUnrecognized function name"
     
 
 (* evaluates the AST by calling funcEval with the first string *)
@@ -43,6 +45,5 @@ let rec eval (input:string) (ast:Expr) : string =
             (* evaluate each argument of the function, then call *)
             let args = List.map (fun e -> eval input e) es
             eval input (funcall name input args)
-    | Userdefined -> failwith "Not yet implemented"
     | Seq(e1,e2) -> eval (eval input e1) e2
     | NOP -> input

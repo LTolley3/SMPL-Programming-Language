@@ -74,12 +74,6 @@ let rec reverse (s:string) =
         (last s) + (reverse (middle s)) + (first s)
 (* repeats a string s n number of times, returns concatenated string *)
 let repeat (s:string) (num : int) = 
-    //if (List.isEmpty vs) || (List.length vs <> 1) then
-    //    failwith "Invalid number of arguments. Expecting 1."
-    //else
-    //    match vs.[0] with
-    //    | Number(n) -> String.replicate n s
-    //    | String(_) -> failwith "Invalid function argument type. Expected int, found string"
     String.replicate num s
 
 (* prepends vs.[0] to string s *)
@@ -90,8 +84,10 @@ let append (s:string) (suffix : string) =
     s + suffix
 (* gets a substring from s *)
 let substring (s:string) (first : int) (last : int) =
-    //TODO write a try to catch index out of bounds
-    s.[first..last]
+    try 
+        s.[first..last]
+    with
+        :? System.ArgumentOutOfRangeException -> failwith (sprintf "\nIndex out of range in function 'substring(%d,%d)'." first last)
 (* contains checks to see if the string contains a substring, returning true if it does *)
 let contains (s:string) (keyword : string) =
     let rec containsHelper source key : bool =
