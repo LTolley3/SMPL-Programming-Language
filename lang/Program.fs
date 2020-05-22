@@ -22,9 +22,13 @@
  *     [/] anagram?
  *     [x] concat? (any concat of functions is possible with nested functions!)
  *     [/] organize library functions
- *     [ ] test files
+ *     [x] test files
+ *     [ ] update spec (title, string  literal, remaining work)
+ *     [ ] TRANSFER.txt
  *     [ ] help menu 
+ *              give an example
  *              single quoted strings to ignore bash characters (or set +H)
+ *     [ ] remove all debug comments
  *     [ ] presentation
  *)
 
