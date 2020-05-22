@@ -31,7 +31,7 @@ let funcall (name:string) (s:string) (args: string list) : Expr=
     | "contains"       -> string (contains s (args.[0])) |> String
     | "replace"        -> replace s args.[0] args.[1] |> String
     | "substringCount" -> substringCount s args.[0] |> Number
-    | "isWord"         -> string (isWord s "dict.txt") |> String 
+    | "isWord"         -> string (isWord s args.[0]) |> String 
     | "shuffle"        -> shuffle s |> String
     | _                -> failwith "\nUnrecognized function name"
     

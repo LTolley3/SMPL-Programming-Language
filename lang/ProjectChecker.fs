@@ -53,6 +53,6 @@ let functionCheck (name : string) (args : string list) : unit =
     | "contains"       -> checkArgNum 1 name args
     | "replace"        -> checkArgNum 2 name args
     | "substringCount" -> checkArgNum 1 name args
-    | "isWord"         -> checkArgNum 0 name args
+    | "isWord"         -> checkArgNum 1 name args
     | "shuffle"        -> checkArgNum 0 name args
     | _                -> failwith (sprintf "\nUnrecognized function name: '%s'" name)

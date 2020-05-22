@@ -119,6 +119,10 @@ let rec substringCount (s : string) (target : string) =
             substringCount s.[1..] target
 (* isWord returns true if s is a word *)
 let isWord (s:string) (filename : string) = 
+    try
+        File.ReadAllLines(filename) |> ignore
+    with
+        :? System.IO.FileNotFoundException -> failwith (sprintf "File '%s' not found." filename)
     let words = File.ReadAllLines(filename)
     Array.contains s words
 (* shuffle randomizes the characters in s *)
