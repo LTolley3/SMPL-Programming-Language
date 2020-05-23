@@ -5,11 +5,9 @@ open ProjectParser
 open Library
 open ProjectChecker
 
-(* evaluation of AST and eventually checkers *)
+(* evaluation of AST *)
 
-(* checker would take an ast, returns ast if good, failwith if bad *)
-
-(* calls function name with the vaariable list vs and initial string s *)
+(* calls function name with the string list args and initial string s *)
 let funcall (name:string) (s:string) (args: string list) : Expr=
     functionCheck name args
     match name with
@@ -35,8 +33,7 @@ let funcall (name:string) (s:string) (args: string list) : Expr=
     | "shuffle"        -> shuffle s |> String
     | _                -> failwith "\nUnrecognized function name"
     
-
-(* evaluates the AST by calling funcEval with the first string *)
+(* evaluates the AST *)
 let rec eval (input:string) (ast:Expr) : string =
     match ast with
     | Number(n) -> string n

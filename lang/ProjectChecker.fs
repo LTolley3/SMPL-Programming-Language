@@ -3,17 +3,6 @@ module ProjectChecker
 open ProjectParser
 open Library
 
-(* 
- * Checker of the ast given by the parser 
- * If the given  ast is valid, it will return the ast.
- * If the given ast is invalid, it will fail the program and exit.
- * 
- * Things to check:
- * Name of each function
- * Number of args of each function
- * Types of args of each function
- *)
-
  (* checks to make sure function 'name' has exactly n arguments *)
 let checkArgNum (n : int) (name : string) (args : string list) : unit =
     if List.isEmpty args then
