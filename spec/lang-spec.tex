@@ -36,7 +36,7 @@
 \pagestyle{fancy}
 
 \lhead{\YOURID}
-\chead{CS334 Final Project Specification}
+\chead{SMPL Programming Language Specification}
 \rhead{\today}
 \lfoot{CSCI 334: Principles of Programming Languages}
 \cfoot{\thepage}
@@ -147,12 +147,16 @@ Programs in SMPL follow the BNF grammar below. Note that the program does not in
                 |"append"
                 |"substring"
                 |"contains"
+                |"isWord"
+                |"substringCount"
+                |"replace"
+                |"shuffle"
 <string>        ::= <character>*
 <character>     ::= \alpha \in {a...z, A...Z, ' '}
 <number>        ::= n in N
 	 \end{verbatim}   
 	    
-	    
+	\newpage
 	\item
 	    \textbf{Semantics}
 
@@ -170,7 +174,6 @@ Programs in SMPL follow the BNF grammar below. Note that the program does not in
 	        Functions are in a sequence pattern, with one following another. Each function takes at least a string as input, and potentially more variables. For example, ``length()" needs no additional input while ``substring()" needs two integer inputs. Functions are evaluated in sequence from left to right, with the input string passed to the first function, the result of that function passed to the next, and so on.
 	        
 	        Arguments passed to functions literally (e.g. ``repeat(3)") are evaluated internally, so the user should just worry about the intuitive type of an input. Strings passed as literals (e.g. ``append("Appended")") must be surrounded by single (') or double (") quotes. When written in the command line, programs must be surrounded by double quotes, so single quotes can be used for passing literals. In program files, either can be used. An integer passed as "2" including quotes will be interpreted as an integer if passed to an integer-seeking function and a string otherwise. An integer passed as 2 without quotes will be interpreted as an integer.
-	        \newpage
 	        \item 
 	        \emph{Algebraic Data Types}
 	        \begin{verbatim}
@@ -198,7 +201,7 @@ Programs in SMPL follow the BNF grammar below. Note that the program does not in
 	        [isPalindrome[append["input with CAPS"][reverse[toLower["input with CAPS"]]]]]
 	        \end{forest}
 	        
-	        
+	        \newpage
 	        \item
 	        \emph{Evaluation}
 	        \begin{enumerate}
@@ -219,20 +222,7 @@ Programs in SMPL follow the BNF grammar below. Note that the program does not in
 	   \item
 	   \textbf{Remaining work}
 	   
-	   We plan to: 
-	   
-	   Implement more built-in functions, such as "findAndReplace", "countSubstring", and "isWord".
-	   
-	   Eliminate the need to have parentheses after functions that don't take arguments. 
-	   
-	   Parse strings with symbols as arguments to functions
-	   
-	   Create a help menu that can be accessed with ``dotnet run help"
-	   
-	   Write unit tests
-	   
-	  \medskip
-	   Our stretch goal is to implement a checker, which would check to make sure that arguments to functions are the types they should be and that there are the right number of them. Our "zen yoga" goal is to implement user-defined functions.
+	   Two additions to the language we didn't manage to implement were the ability to read in text files as input strings and user-defined functions. These would be the next features we'd add to the language if we were to continue working on it. We'd also write more built-in functions like anagram.
 	   
 	   
 \end{enumerate}
