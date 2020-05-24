@@ -13,7 +13,7 @@ let readSMPL (input : string) =
         | _       -> input
 
 (* help menu displays useful information about using smpl *)
-let helpMenu : unit = 
+let helpMenu () = 
     printfn "\nUsage:\n\t dotnet run \"input\" \"program\" \n\nwhere input is a string and program is of the form: func1 func2 ... or a .smpl file.\n"
     printfn "Example program:\n\n\tdotnet run \"example_input\" \"reverse append('ABC')\"\n"
     printfn "Output: tupni_elpmaxeABC"
@@ -30,8 +30,8 @@ let main argv =
         0
     else
         let input = argv.[0]
-        if input = "help"  && (Array.length argv = 1) then 
-            helpMenu
+        if (input = "help")  && (Array.length argv = 1) then 
+            helpMenu ()
             0
         else
             let program = readSMPL argv.[1]
