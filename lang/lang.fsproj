@@ -7,6 +7,7 @@
     <Compile Include="Parsers.fs" />
     <Compile Include="ProjectParser.fs" />
     <Compile Include="Library.fs" />
+    <Compile Include="ProjectChecker.fs" />
     <Compile Include="ProjectInterpreter.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
